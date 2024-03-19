@@ -44,7 +44,7 @@ h1 {
   padding-left: 2rem;
   padding-right: 2rem;
   margin: 0 auto;
-}
+} 
 
 main {
   min-height: calc(100vh - 85px - 22px);
@@ -79,4 +79,4 @@ form button {
 
 input[type="search"] {
   padding: 0.5rem 1rem;
-}
+} 
