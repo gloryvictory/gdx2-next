@@ -33,8 +33,8 @@ export default async function Blog() {
 
       <ul className="marker:text-sky-400 list-disc pl-5 space-y-3 text-slate-500">
         {authors.data.map((author: any) => (
-          <li key={author}>
-            <Link href={`/report/${author.id}`}>{author}</Link>
+          <li key={author.id}>
+            <Link href={`/author/${author.id}`}>{author.author_name}</Link>
           </li>
         ))}
       </ul>
