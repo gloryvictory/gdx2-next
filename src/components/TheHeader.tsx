@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { Input } from 'antd';
 import type { SearchProps } from 'antd/es/input/Search';
+import { TheSearch } from "./TheSearch/TheSearch";
 const { Search } = Input;
 
 // const TheHeader = () => {
@@ -55,7 +56,7 @@ const navigation = [
 
 
 export  function TheHeader() {
-  const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
+  // const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
 
 
   return (
@@ -90,8 +91,9 @@ export  function TheHeader() {
           className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto"
         >
         
+        <TheSearch/>
 
-        <div 
+        {/* <div 
           // className="lg:flex hidden items-center bg-white py-1 px-2 rounded-full space-x-96"
           className="lg:flex hidden items-center bg-white py-1 px-2 rounded-full space-x-2"
         >
@@ -103,7 +105,7 @@ export  function TheHeader() {
             type="text" 
             placeholder="Поиск" 
           />
-        </div>
+        </div> */}
 
 
           {navigation.map((item) => (
