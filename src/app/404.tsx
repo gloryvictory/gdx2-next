@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 
-export default function ErrorWrapper({ error }: { error: Error }) 
+export default function Custom404() 
 {
   const router = useRouter();
   useEffect(() => { 
@@ -16,7 +16,7 @@ export default function ErrorWrapper({ error }: { error: Error })
 
   return (
     <>
-      <h1>Oops!!! {error.message}</h1>;
+      <h1>Oops!!! :=( </h1>;
       <h2>Такой страницы тут нет...</h2>
       <p>перейти на <Link href={'/'}> <a>Главную страницу</a></Link></p>
     </>
