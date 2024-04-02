@@ -12,7 +12,7 @@ export default function Custom404()
     setTimeout(()=>{
       router.push('/');
     }, 3000)
-  }, []);
+  }, [router]);
 
   return (
     <>

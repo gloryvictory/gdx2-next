@@ -12,7 +12,7 @@ export default function ErrorWrapper({ error }: { error: Error })
     setTimeout(()=>{
       router.push('/');
     }, 3000)
-  }, []);
+  }, [router]);
 
   return (
     <>
