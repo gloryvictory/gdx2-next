@@ -20,7 +20,7 @@ async function getData() {
 }
 
 export const metadata: Metadata = {
-    title: "Authors | Next App",
+    title: "Отчеты | Авторы",
 };
 
 export default async function Blog() {
@@ -29,6 +29,7 @@ export default async function Blog() {
 
   return (
     <>
+    <div className="mt-20">
       <h1>Авторы {authors.count}</h1>
 
       <ul className="marker:text-sky-400 list-disc pl-5 space-y-3 text-slate-500">
@@ -38,6 +39,7 @@ export default async function Blog() {
           </li>
         ))}
       </ul>
+    </div>
     </>
   );
 }
