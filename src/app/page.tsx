@@ -1,6 +1,8 @@
+
 import StatArea from '@/components/stat/StatArea';
 import StatAuthor from '@/components/stat/StatAuthor';
 import StatField from '@/components/stat/StatField';
+import StatItem from '@/components/stat/StatItem';
 import StatList from '@/components/stat/StatList';
 import StatLu from '@/components/stat/StatLu';
 import StatOrg from '@/components/stat/StatOrg';
@@ -8,15 +10,32 @@ import StatPi from '@/components/stat/StatPi';
 import StatReport from '@/components/stat/StatReport';
 import StatSubrf from '@/components/stat/StatSubrf';
 import StatVidRab from '@/components/stat/StatVidRab';
-import { Button, Card, Col, Row, Statistic } from 'antd';
+import { Col, Row } from 'antd';
 import Head from 'next/head';
+import Link from 'next/link';
+
+
+
+// const navigation = [
+//   { title: 'Отчетов', href: '/', obj: 'report' },
+//   { title: 'Авторов', href: '/author', obj: 'author' },
+//   { title: 'Листов карт', href: '#', obj: 'list' },
+//   { title: 'Субъектов РФ', href: '#', obj: 'subrf' },
+//   { title: 'Организаций', href: '#', obj: 'org' },
+//   { title: 'Площадей', href: '#', obj: 'area' },
+//   { title: 'Месторождений', href: '#', obj: 'field' },
+//   { title: 'Лицензий', href: '#', obj: 'lu' },
+//   { title: 'ПИ', href: '#', obj: 'pi' },
+//   { title: 'Вид работ', href: '#', obj: 'vid_rab' },
+// ]
+
 
 
 export default function Home() {
   return (
   <>
     <Head>
-      Welcome to NextJS world
+      Статистика
     </Head>
     
 
@@ -52,6 +71,10 @@ export default function Home() {
         <Col span={3}>
           <StatVidRab/>
         </Col>
+
+        {/* {navigation.map((item) => (StatItem key={item.obj} title={item.title} href={item.href} obj={item.obj} /> ))} */}
+
+
       </Row>    
     </div>
   

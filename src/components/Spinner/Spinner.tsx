@@ -1,7 +1,10 @@
 
 const Spinner = () => {
+  // min-h-[240px]
+  // <div className="flex items-center justify-center space-x-2 animate-pulse top-1/2 mt-36">
   return (
-    <div className="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
+    <div className="grid w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
+    
       <svg className="text-gray-300 animate-spin" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"
           width="48" height="48">
           <path

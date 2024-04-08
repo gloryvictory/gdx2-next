@@ -126,3 +126,15 @@ export  async function getVidRabCount(): Promise<ICount> {
 
   return res.json();
 }
+
+// export  async function getCountByObj(obj: string): Promise<ICount> {
+//   const url = `http://${host}:${port}/api/v1/report/${obj}/count`
+//   console.log(url)
+//   const res = await fetch(url);
+
+//   if (!res.ok) {
+//     throw new Error("Failed to fetch data");
+//   }
+
+//   return res.json();
+// }
