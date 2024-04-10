@@ -1,6 +1,7 @@
 import { Tooltip } from "antd";
 import { Metadata } from "next";
 import Link from "next/link";
+import { cfg } from "../cfg/cfg";
 
 export interface IAutorRes {
     msg: string
@@ -13,15 +14,14 @@ export interface IData {
   author_name: string
 }
 
+const host = process.env.HOST_BCK || "localhost" 
+const port = process.env.PORT_BCK || "8001" 
+
+
 async function getData() {
-  const response = await fetch("http://localhost:8001/api/v1/author/all", {
-  next: {
-      revalidate: 60,
-  },
-  });
-
-  if (!response.ok) throw new Error("Unable to fetch authors!");
-
+  const url = `http://${host}:${port}/api/v1/report/author/all`
+  const response = await fetch( url, { next: { revalidate: cfg.delay,},});
+  if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
   return response.json();
 }
 
@@ -34,18 +34,17 @@ let sampleRegEx: RegExp = /^[а-яА-ЯёЁa-zA-Z]+ [а-яА-ЯёЁa-zA-Z]. ?[а
 
 export default async function Blog() {
     const authors : IAutorRes = await getData();
-    console.log(authors);
-    let className1 : string ="box-border rounded bg-slate-100 w-96 pl-2"
+    // console.log(authors);
   return (
     <>
     <div className="mt-20">
-      <h1>Авторы {authors.count}</h1>
+      <h1>Всего авторов: <strong>{authors.count}</strong> </h1>
 
       {/* <ol type="1" className="marker:text-sky-400 list-disc pl-5 space-y-3 text-slate-500"> */}
-      <ol className="marker:text-sky-400 pl-5 space-y-3 text-slate-500 list-decimal ml-10  ">
-        {authors.data.map((author: any) => (                
+      <ol className="marker:text-sky-400 pl-5 space-y-3 text-slate-500 list-decimal ml-10 ">
+        {authors.data.map((author: any ) => (                
           <Tooltip key={author.id} placement="right" title={ 'Дата обновления: ' + new Date(author.lastupdate).toLocaleDateString('ru-RU')} >
-            <li key={author.id} className={sampleRegEx.test(author.author_name) ? "box-border rounded bg-slate-100 w-96 pl-2" : "box-border rounded bg-slate-100 w-96 pl-2 border-solid border-2 border-fuchsia-600"} > 
+            <li key={author.id} className={sampleRegEx.test(author.author_name) ? "box-border rounded bg-slate-100 w-96 pl-2 hover:bg-slate-700 hover:text-sky-400" : "box-border rounded bg-slate-100 w-96 pl-2 border-dashed border-2 border-fuchsia-600 hover:bg-slate-700 hover:text-sky-400"} > 
                 <Link href={`/author/${author.id}`} className="font-mono">{author.author_name}</Link>
             </li>
           </Tooltip>
