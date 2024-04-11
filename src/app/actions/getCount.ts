@@ -5,8 +5,7 @@ export interface ICount {
   count: number
 }
 
-const host = process.env.HOST_BCK || "localhost" 
-const port = process.env.PORT_BCK || "8001" 
+const {host, port} = cfg
 
 export  async function getAuthorCount(): Promise<ICount> {
   const url = `http://${host}:${port}/api/v1/report/author/count`

@@ -2,7 +2,6 @@
 import StatArea from '@/components/stat/StatArea';
 import StatAuthor from '@/components/stat/StatAuthor';
 import StatField from '@/components/stat/StatField';
-import StatItem from '@/components/stat/StatItem';
 import StatList from '@/components/stat/StatList';
 import StatLu from '@/components/stat/StatLu';
 import StatOrg from '@/components/stat/StatOrg';
@@ -12,7 +11,6 @@ import StatSubrf from '@/components/stat/StatSubrf';
 import StatVidRab from '@/components/stat/StatVidRab';
 import { Col, Row } from 'antd';
 import Head from 'next/head';
-import Link from 'next/link';
 
 
 

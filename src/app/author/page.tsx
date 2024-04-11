@@ -1,6 +1,5 @@
 import { Tooltip } from "antd";
 import { Metadata } from "next";
-import Link from "next/link";
 import { cfg } from "../cfg/cfg";
 
 export interface IAutorRes {
@@ -14,12 +13,11 @@ export interface IData {
   author_name: string
 }
 
-const host = process.env.HOST_BCK || "localhost" 
-const port = process.env.PORT_BCK || "8001" 
+const {host, port} = cfg
 
 
 async function getData() {
-  const url = `http://${host}:${port}/api/v1/report/author/all`
+  const url = `http://${host}:${port}/api/v1/report/author/`
   const response = await fetch( url, { next: { revalidate: cfg.delay,},});
   if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
   return response.json();
@@ -45,7 +43,7 @@ export default async function Blog() {
         {authors.data.map((author: any ) => (                
           <Tooltip key={author.id} placement="right" title={ 'Дата обновления: ' + new Date(author.lastupdate).toLocaleDateString('ru-RU')} >
             <li key={author.id} className={sampleRegEx.test(author.author_name) ? "box-border rounded bg-slate-100 w-96 pl-2 hover:bg-slate-700 hover:text-sky-400" : "box-border rounded bg-slate-100 w-96 pl-2 border-dashed border-2 border-fuchsia-600 hover:bg-slate-700 hover:text-sky-400"} > 
-                <Link href={`/author/${author.id}`} className="font-mono">{author.author_name}</Link>
+                <span className="font-mono">{author.author_name}</span>
             </li>
           </Tooltip>
         ))}
