@@ -72,7 +72,6 @@ export default function Home() {
 
         {/* {navigation.map((item) => (StatItem key={item.obj} title={item.title} href={item.href} obj={item.obj} /> ))} */}
 
-
       </Row>    
     </div>
   

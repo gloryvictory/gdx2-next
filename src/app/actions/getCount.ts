@@ -1,9 +1,6 @@
 import { cfg } from "../cfg/cfg"
+import { ICount } from "../types";
 
-export interface ICount {
-  msg: string
-  count: number
-}
 
 const {host, port} = cfg
 
