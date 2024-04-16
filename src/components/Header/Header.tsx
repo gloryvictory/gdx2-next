@@ -5,16 +5,15 @@ import { TheSearch } from "../TheSearch/TheSearch";
 
 const navigation = [
   { name: 'Статистика', href: '/', current: true },
-  { name: 'Авторы', href: '/author', current: false },
+  { name: 'Отчеты', href: '/report_table', current: false },
   { name: 'О программе', href: '/about', current: false },
-  { name: 'Блог', href: '/blog', current: false },
-  { name: 'Reports', href: '#', current: false },
 ]
 
 
 const Header = () => {
+  const className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
   return (
-    <header className="fixed w-full bg-gray-800  py-4 top-0">
+    <header className="fixed w-full bg-gray-800  py-4 top-0 z-20">
       <div className="mx-auto px-4">
         <nav className="flex items-center justify-between">
           
@@ -32,19 +31,21 @@ const Header = () => {
               Отчеты
             </span>
           </a>
-          
+{/*           
           <div className="text-white text-2xl font-bold">
             <TheSearch/>          
-          </div>
+          </div> */}
           
 
 
           <ul className="flex space-x-4">
-            {navigation.map((item) => (
+            {
+            
+            navigation.map((item) => (
               <Link 
                 key={item.name}
                 href={item.href} 
-                className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white">
+                className= {className}>
                 {item.name}       
               </Link>
             ))

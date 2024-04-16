@@ -10,7 +10,7 @@ export default async function StatVidRab() {
   return (
     
     <div className=' hover:bg-gray-900 mt-1 '>
-      <Link href={'/author'}>
+      <Link href={'/vidrab'}>
         <Card bordered={true}>
           <Statistic title="Вид работ" value={data.count} />
         </Card>      

@@ -1,5 +1,5 @@
 import { cfg } from "../cfg/cfg"
-import { IResult } from "../types";
+import { IResult, IResultReport } from "../types";
 
 const {host, port} = cfg
 
@@ -37,6 +37,56 @@ export async function getLists(): Promise<IResult> {
 export async function getSubrfs(): Promise<IResult> {
   const url = `http://${host}:${port}/api/v1/report/subrf`
   const response = await fetch( url, { next: { revalidate: cfg.delay,},});
+  if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
+  return response.json();
+}
+
+export async function getOrgs(): Promise<IResult> {
+  const url = `http://${host}:${port}/api/v1/report/org`
+  const response = await fetch( url, { next: { revalidate: cfg.delay,},});
+  if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
+  return response.json();
+}
+
+export async function getAreas(): Promise<IResult> {
+  const url = `http://${host}:${port}/api/v1/report/area`
+  const response = await fetch( url, { next: { revalidate: cfg.delay,},});
+  if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
+  return response.json();
+}
+
+export async function getFields(): Promise<IResult> {
+  const url = `http://${host}:${port}/api/v1/report/field`
+  const response = await fetch( url, { next: { revalidate: cfg.delay,},});
+  if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
+  return response.json();
+}
+
+export async function getLus(): Promise<IResult> {
+  const url = `http://${host}:${port}/api/v1/report/lu`
+  const response = await fetch( url, { next: { revalidate: cfg.delay,},});
+  if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
+  return response.json();
+}
+
+export async function getPis(): Promise<IResult> {
+  const url = `http://${host}:${port}/api/v1/report/pi`
+  const response = await fetch( url, { next: { revalidate: cfg.delay,},});
+  if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
+  return response.json();
+}
+
+
+export async function getVidRabs(): Promise<IResult> {
+  const url = `http://${host}:${port}/api/v1/report/vid_rab`
+  const response = await fetch( url, { next: { revalidate: cfg.delay,},});
+  if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
+  return response.json();
+}
+
+export async function getReports(): Promise<IResultReport> {
+  const url = `http://${host}:${port}/api/v1/report/all`
+  const response = await fetch( url );
   if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
   return response.json();
 }
