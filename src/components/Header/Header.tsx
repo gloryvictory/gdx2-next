@@ -31,10 +31,10 @@ const Header = () => {
               Отчеты
             </span>
           </a>
-{/*           
+          
           <div className="text-white text-2xl font-bold">
             <TheSearch/>          
-          </div> */}
+          </div>
           
 
 

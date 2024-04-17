@@ -25,22 +25,22 @@ export interface IReport {
   report_name: string
   author_name: string
   rgf: string
-  tgf: string
-  tgf_tmn: string
-  tgf_ekat: string
   tgf_hmao: string
   tgf_ynao: string
-  tgf_novo: string
-  tgf_omsk: string
-  tgf_tomsk: string
-  tgf_kurgan: string
   tgf_kras: string
+  tgf_ekat: string
+  tgf_omsk: string
+  tgf_novo: string
+  tgf_tomsk: string
   tgf_more: string
+  tgf_tmn: string
+  tgf_kurgan: string
+  tgf: string
+  subrf_name: string
   areaoil: string
   field: string
   pi_name: string 
   territory_name: string
-  subrf_name: string
   fin_name: string
   is_alive: boolean
   org_name: string
