@@ -90,3 +90,11 @@ export async function getReports(): Promise<IResultReport> {
   if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
   return response.json();
 }
+
+
+export async function getReportsByQuery(query: string): Promise<IResultReport> {
+  const url = `http://${host}:${port}/api/v1/report/${query}`
+  const response = await fetch( url );
+  if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
+  return response.json();
+}

@@ -1,7 +1,7 @@
-'use client'
+// 'use client'
 
 // import { Tooltip } from "antd";
-import { Metadata } from "next";
+// import { Metadata } from "next";
 import { IResultReport } from "../types";
 import {  getReports } from "../actions/getAll";
 
@@ -9,7 +9,7 @@ import{ Table } from "antd";
 // import "antd.min.css"; // add this
 // import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs'
 // export * from "antd";
-import "antd/dist/reset.css";
+// import "antd/dist/reset.css";
 
 
 // export const metadata: Metadata = {

@@ -1,12 +1,12 @@
 import { Tooltip } from "antd";
 import { Metadata } from "next";
-import { IResult, IResultReport } from "../types";
-import {  getFields, getLus, getOrgs, getPis, getReports, getSubrfs } from "../actions/getAll";
+import { IResultReport } from "../types";
+import { getReports } from "../actions/getAll";
 
 
 
 export const metadata: Metadata = {
-    title: "Отчеты | ПИ",
+    title: "Отчеты | Все отчеты",
 };
 
 //  проверяем на совпадение регулярного выражения вида "Иванов И.И."
