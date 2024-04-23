@@ -27,7 +27,7 @@ export default async function Search({
 
       <Suspense key={searchParams.q} fallback={<LoadingPosts/>}>
         <h1>Ищем <strong>{q}</strong> </h1>    
-        <TheReport q={q}/>
+        <TheReport query={q}/>
       </Suspense>
       
 

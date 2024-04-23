@@ -3,6 +3,7 @@ import "./globals.css";
 
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
+import { Suspense } from "react";
 
 
 export const metadata: Metadata = {
@@ -19,7 +20,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Header />
-          <main className="container">{children}</main>
+          <main className="container">
+            <Suspense fallback={<div>Loading...</div>}>    
+              {children}
+            </Suspense>
+          </main>
         <Footer />
       </body>
     </html>

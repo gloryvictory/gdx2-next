@@ -1,19 +1,30 @@
-import { getReportsByQuery } from "@/app/actions/getAll";
+'use client'
+
+export const dynamic = 'force-dynamic'
+
+import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
+import { getReports, getReportsByQuery } from "@/app/actions/getAll";
 import { IResultReport } from "@/app/types";
 import { Tooltip } from "antd";
 
-
-
-export default async function TheReport({
-  q  
-}: {
-  q: string | undefined;
-}) {
+// export default async function TheReport({ q }: { q: string | undefined;}) {}
   
-  const items : IResultReport = await getReportsByQuery(q);
+
+export default async function TheReport({ query }: { query: string | undefined;}) {
+  const searchParams = useSearchParams()
+  
+  const q = query ||searchParams.get('q')
+  let items : IResultReport = {count: 0, data: [],  msg: 'Не найдено'};
+
+  if(q) { items  = await getReportsByQuery(q);} 
+  else { items  = await getReports();}
+  
+  // const items: []
 
 return (
-  <>
+  <Suspense>
+
   <div className="mt-20">
     <h1>Отчетов: <strong>{items.count}</strong> </h1>
 
@@ -28,6 +39,6 @@ return (
       ))}
     </ol>
   </div>
-  </>
+  </Suspense>
 );
 }
