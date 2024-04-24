@@ -1,34 +1,26 @@
-// 'use client'
+'use client'
 
-import { Tooltip } from "antd";
-import { Metadata } from "next";
+
 // import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-import LoadingPosts from "./loading";
-import TheReport from "@/components/Report/TheReport";
+// import { Suspense } from "react";
+// import LoadingPosts from "./loading";
+// import TheReport from "@/components/Report/TheReport";
 
-// export const metadata: Metadata = {
-//     title: "Отчеты | Авторы",
-// };
+// { searchParams,}: {searchParams: { q: string | undefined };}
 
-
-export default async function Search({
-  searchParams,
-}: {
-  searchParams: { q: string | undefined };
-}) {
+export default function Search() {
   
-  // const searchParams = searchParams()!;
-  const q = searchParams.q;
+  // const searchParams = useSearchParams()!;
+    // const q = searchParams.get("q")!;
 
   return (
     <>
     <div className="mt-20">
 
-      <Suspense key={searchParams.q} fallback={<LoadingPosts/>}>
-        <h1>Ищем <strong>{q}</strong> </h1>    
-        <TheReport query={q}/>
-      </Suspense>
+      {/* <Suspense key={q} fallback={<LoadingPosts/>}> */}
+        <h1>Ищем <strong>{"вавапвап"}</strong> </h1>    
+        {/* <TheReport query={q}/> */}
+      {/* </Suspense> */}
       
 
     </div>

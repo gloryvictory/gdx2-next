@@ -1,7 +1,7 @@
 import { Tooltip } from "antd";
 import { Metadata } from "next";
-import Link from "next/link";
-import { cfg } from "../cfg/cfg";
+// import Link from "next/link";
+// import { cfg } from "../cfg/cfg";
 import { IResult } from "../types";
 import { getLists } from "../actions/getAll";
 
