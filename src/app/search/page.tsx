@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect, Suspense, MouseEventHandler, DetailedHTMLProps, LiHTMLAttributes } from 'react'
+import { useState, useEffect, useCallback, Suspense, MouseEventHandler, DetailedHTMLProps, LiHTMLAttributes } from 'react'
 import { getReports } from '../actions/getAll'
-import { IReport, IResultReport } from '../types'
+import { IReport, IResultReport } from '../types';
 // import Spinner from '@/components/Spinner/Spinner'
 import { Flex, Input, Layout, Space, Spin } from 'antd'
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
@@ -22,12 +22,21 @@ import { TheDrawer } from './TheDrawer'
 // { searchParams,}: {searchParams: { q: string | undefined };}
 
 export default function SearchReport() {
-  const [data, setData] = useState<IResultReport>()
+  // const [data, setData] = useState<IResultReport>()
+  const [inputValue, setInputValue] = useState<string>("")
+  const [initialList, setInitialList] = useState<IReport[]>()
+  const [filteredList, setFilteredList] = useState<IReport[]>()
+  const [data, setData] = useState<IReport[]>()
+
   const [isLoading, setLoading] = useState<boolean>(false)
   const [open, setOpen] = useState(false);
   const [curentItem, setCurentItem] = useState<IReport>();
 
-  const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
+  const onSearch: SearchProps['onSearch'] = (value, _e, info) => 
+  {
+    console.log(info?.source, value);
+    setInputValue(value)
+  }
   
   const layoutStyle = {
     // borderRadius: 8,
@@ -47,7 +56,8 @@ export default function SearchReport() {
     const getData = async () => {
       setLoading(false)
       const reports = await getReports()
-      setData(reports)
+      // setData(reports)
+      setInitialList(reports?.data)
       setLoading(true)
     }
 
@@ -61,17 +71,33 @@ export default function SearchReport() {
   const onClose = () => {
     setOpen(false);
   };
-  // DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>
-  // const onReportClick = (e: MouseEventHandler<HTMLLIElement>| undefined) => {
-  // const onReportClick = (e:  MouseEventHandler<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>> | undefined) => {
-  //   const li_elem: HTMLLIElement = e.target as HTMLLIElement
-  //   const id = e?.target?.getAttribute('key')
+
   
-  //   console.log(e)
-  //   console.log(e?.arguments)
-  //   console.log(li_elem)
-  //   console.log(e?.id)
-  // }
+// Search Handler
+const searchHandler = useCallback(() => {
+  // setLoading(true)
+  const filteredData = initialList?.filter((report: IReport) => {
+    return report.report_name.toLowerCase().includes(inputValue.toLowerCase())
+  })
+  setFilteredList(filteredData)
+  inputValue?.length? setData(filteredList) : setData(initialList)
+  // setLoading(false)
+}, [initialList, inputValue, filteredList])
+
+// EFFECT: Search Handler
+useEffect(() => {
+  // Debounce search handler
+  const timer = setTimeout(() => {
+    searchHandler()
+  }, 500)
+
+  // Cleanup
+  return () => {
+    clearTimeout(timer)
+    
+  }
+}, [searchHandler])
+
 
   return (
     <>
@@ -80,13 +106,19 @@ export default function SearchReport() {
         {/* { !isLoading && <Spinner/>  } */}
         { !isLoading && <Spin tip="Получаем все отчеты..." size="large" fullscreen/>  }
 
-        <Layout style={layoutStyle}>        
-        {/* <Flex vertical gap={12}> */}
-          <Search placeholder="input search text" onSearch={onSearch}  allowClear   />
-        </Layout>
+        <div className="relative mt-8 mb-5">
+          <Layout style={layoutStyle}>        
+          {/* <Flex vertical gap={12}> */}
+            <Search placeholder="ищем в названии отчета" onSearch={onSearch}  allowClear   />
+          </Layout>
+        </div>
+        
+        Найдено: <strong>{data?.length}</strong>
         {/* </Flex> */}
         <Row gutter={16}>
-        {data?.data.map((item: IReport ) => ( 
+        {
+        // const data: IReport[] = filteredList?.length? filteredList : initialList
+        data?.map((item: IReport ) => ( 
           // const rgf = item.rgf.length? `rgf: ${item.rgf}` : '',
 
             <Col span={8}  key={item.id}>
