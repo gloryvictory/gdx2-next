@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, Suspense, MouseEventHandler, Detailed
 import { getReports } from '../actions/getAll'
 import { IReport, IResultReport } from '../types';
 // import Spinner from '@/components/Spinner/Spinner'
-import { Flex, Input, Layout, Space, Spin } from 'antd'
+import { Affix, Flex, Input, Layout, Space, Spin } from 'antd'
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 
 // import Search from 'antd/es/transfer/search'
@@ -105,15 +105,14 @@ useEffect(() => {
 
         {/* { !isLoading && <Spinner/>  } */}
         { !isLoading && <Spin tip="Получаем все отчеты..." size="large" fullscreen/>  }
-
-        <div className="relative mt-8 mb-5">
-          <Layout style={layoutStyle}>        
-          {/* <Flex vertical gap={12}> */}
-            <Search placeholder="ищем в названии отчета" onSearch={onSearch}  allowClear   />
-          </Layout>
-        </div>
-        
-        Найдено: <strong>{data?.length}</strong>
+        <Affix offsetTop={80} className='ml-2'>
+          <Search placeholder="ищем в названии отчета" onSearch={onSearch} allowClear />
+          <div className='bg-slate-100 rounded-md p-2 text-center text-sm'>
+            Найдено: <strong>{data?.length}</strong> отчетов
+          </div>
+        </Affix>  
+      
+       
         {/* </Flex> */}
         <Row gutter={16}>
         {
@@ -134,7 +133,7 @@ useEffect(() => {
                 actions={[
                   `№ РГФ: ${item.rgf.length? `${item.rgf}` : ''}`,
                   `${item.tgf.length? `${item.tgf}` : ''}`,                  
-                  <EllipsisOutlined key="ellipsis" />,
+                  `Год: ${item.year_str.length? `${item.year_str}` : ''}`,,
                 ]}
                 onClick={()=>{setCurentItem(item);showDrawer()}}
               >
@@ -167,3 +166,9 @@ useEffect(() => {
 //      </li>          
 //  ))}
 // </ol>
+// {/* <div className="relative mt-8 mb-5">
+// <Layout style={layoutStyle}>        
+// {/* <Flex vertical gap={12}> */}
+  // <Search placeholder="ищем в названии отчета" onSearch={onSearch}  allowClear   />
+// </Layout>
+// </div>  */}
