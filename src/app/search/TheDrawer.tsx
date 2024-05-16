@@ -32,12 +32,31 @@ const DescriptionItem = ({ title, content }: DescriptionItemProps) => (
     <Col span={18} >
       <strong>{content}</strong>
     </Col>
+    <Divider dashed className='mt-0 mb-2'/>
   </Row>
   : null
 );
 
-export const TheDrawer: React.FC<PropsDrawer> = ({open, onClose,showDrawer, item }:PropsDrawer) => {
 
+function OpenExplorerWindow() {
+  // window.open("file:///" + filePath);
+  // window.open("file:///c:/");
+  
+  
+  // var settings = 'height=550,width=775,top=' + (screen.height - 550) / 2 + ',left=' + (screen.width - 775) / 2 + ',scrollbars=yes,resizable=no';
+  // var win = window.open('file:///c:/', 'ExplorerWindow', settings);
+  // console.log(win);
+  // win?.focus();
+  // win?.window.focus();
+  // // if (parseInt(navigator.appVersion) >= 4) {
+  //   win?.window.focus();
+  // }
+}
+
+export const TheDrawer: React.FC<PropsDrawer> = ({open, onClose,showDrawer, item }:PropsDrawer) => {
+  
+  
+  // const date_tmp = 
   return (
     <>
       <Button type="primary" onClick={showDrawer}>
@@ -50,13 +69,9 @@ export const TheDrawer: React.FC<PropsDrawer> = ({open, onClose,showDrawer, item
         width={720}
       >
             <DescriptionItem title="ID" content={item?.id} />
-            <Divider dashed />
             <DescriptionItem title="Имя" content={item?.report_name} />
-            <Divider dashed />
             <DescriptionItem title="Автор" content={item?.author_name} />
-            <Divider dashed />
             <DescriptionItem title="Год" content={item?.year_str} />
-            <Divider dashed />
             <DescriptionItem title="РГФ" content={item?.rgf} />
             <DescriptionItem title="ТГФ ХМАО" content={item?.tgf_hmao} />
             <DescriptionItem title="ТГФ ЯНАО" content={item?.tgf_ynao} />
@@ -82,11 +97,14 @@ export const TheDrawer: React.FC<PropsDrawer> = ({open, onClose,showDrawer, item
             <DescriptionItem title="Вид работ" content={item?.vid_rab} />
             <DescriptionItem title="Информационный отчет" content={item?.inf_report} />
             <DescriptionItem title="Ссылка" content={item?.folder_root} />
+            {/* <button onClick={()=>OpenExplorerWindow()} className='bg-slate-500 rounded hover:bg-slate-800'>Open Explorer Window</button>
+            <input type="file"  title='sdfsdsdfsdf'/>  */}
             <DescriptionItem title="Комментарии" content={item?.comments} />
-            <DescriptionItem title="Дата обновления" content={item?.lastupdate} />
+            <DescriptionItem title="Дата обновления" content={new Date(item?.lastupdate!).toLocaleDateString('ru-RU')} />
       </Drawer>
     </>
   );
 };
+
 
 

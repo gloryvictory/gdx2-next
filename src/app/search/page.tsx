@@ -128,7 +128,7 @@ useEffect(() => {
                 size="small"
                 key={item.id}
                 title={item.id}
-                extra={<a href="#">More</a>}
+                // extra={<a href="#">More</a>}
                 // cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
                 actions={[
                   `№ РГФ: ${item.rgf.length? `${item.rgf}` : ''}`,
