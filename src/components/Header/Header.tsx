@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { TheSearch } from "../TheSearch/TheSearch";
-import Image from "next/image";
+// import { TheSearch } from "../TheSearch/TheSearch";
+// import Image from "next/image";
 // import { TheSearch } from "./TheSearch/TheSearch";
 // import logo from "/public/img/zsniigg.png";
 
@@ -9,6 +9,7 @@ const navigation = [
   { name: 'Статистика', href: '/', current: true },
   { name: 'Отчеты', href: '/report_table', current: false },
   { name: 'Поиск', href: '/search', current: false },
+  { name: 'Поиск2', href: '/search2', current: false },
   { name: 'О программе', href: '/about', current: false },
 ]
 
@@ -41,9 +42,6 @@ const Header = () => {
           {/* <div className="text-white text-2xl font-bold">
             <TheSearch/>          
           </div> */}
-          
-
-
           <ul className="flex space-x-4">
             {
             

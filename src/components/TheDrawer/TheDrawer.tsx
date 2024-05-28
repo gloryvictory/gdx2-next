@@ -16,12 +16,6 @@ interface DescriptionItemProps {
   content: React.ReactNode;
 }
 
-// const DescriptionItem = ({ title, content }: DescriptionItemProps) => (
-//   <div className="site-description-item-profile-wrapper">
-//     <p className="site-description-item-profile-p-label">{title}:</p>
-//     {content}
-//   </div>
-// );
 const DescriptionItem = ({ title, content }: DescriptionItemProps) => (
   content?.toString().length 
   ?  
@@ -55,8 +49,6 @@ function OpenExplorerWindow() {
 
 export const TheDrawer: React.FC<PropsDrawer> = ({open, onClose,showDrawer, item }:PropsDrawer) => {
   
-  
-  // const date_tmp = 
   return (
     <>
       <Button type="primary" onClick={showDrawer}>
