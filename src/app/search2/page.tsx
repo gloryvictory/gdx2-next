@@ -1,11 +1,9 @@
 'use client'
 
 import { useState, useEffect, useCallback, Suspense, MouseEventHandler, DetailedHTMLProps, LiHTMLAttributes } from 'react'
-import { getReports, getReportsByQuery } from '../actions/getAll'
+import { getReportsByQuery } from '../actions/getAll'
 import { IReport, IResultReport } from '../types';
-// import Spinner from '@/components/Spinner/Spinner'
-import { Affix, Flex, Input, Layout, Space, Spin } from 'antd'
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { Affix, Input, Spin  } from 'antd'
 
 // import Search from 'antd/es/transfer/search'
 import type { SearchProps } from 'antd/es/input/Search';
@@ -14,18 +12,11 @@ import { Card, Col, Row } from 'antd';
 import Meta from 'antd/es/card/Meta'
 import { TheDrawer } from '@/components/TheDrawer/TheDrawer';
 
-// import { useSearchParams } from "next/navigation";
-// import { Suspense } from "react";
-// import LoadingPosts from "./loading";
-// import TheReport from "@/components/Report/TheReport";
-
-// { searchParams,}: {searchParams: { q: string | undefined };}
-
 export default function SearchReport() {
   // const [data, setData] = useState<IResultReport>()
   const [inputValue, setInputValue] = useState<string>("")
   const [initialList, setInitialList] = useState<IReport[]>()
-  const [filteredList, setFilteredList] = useState<IReport[]>()
+  // const [filteredList, setFilteredList] = useState<IReport[]>()
   const [data, setData] = useState<IReport[]>()
 
   const [isLoading, setLoading] = useState<boolean>(false)
@@ -44,11 +35,11 @@ export default function SearchReport() {
   };
 
   const getData = async (query: string) => {
-    setLoading(false)
+    setLoading(true)
     const reports = await getReportsByQuery(query)
     // setData(reports)
     setInitialList(reports?.data)
-    setLoading(true)
+    setLoading(false)
   }
 
   const onSearch: SearchProps['onSearch'] = (value, _e, info) => 
@@ -110,20 +101,21 @@ export default function SearchReport() {
     <div className="mt-20">
 
         {/* { !isLoading && <Spinner/>  } */}
-        {/* { !isLoading && <Spin tip="Получаем все отчеты..." size="large" fullscreen/>  } */}
+        { isLoading && <Spin tip="Получаем все отчеты..." size="large" fullscreen/>  } 
         <Affix offsetTop={80} className='ml-2'>
           <div>
             <Search placeholder="ищем в названии отчета" onSearch={onSearch} allowClear />
             <div className='bg-slate-100 rounded-md p-2 text-center text-sm'>
-              Найдено: <strong>{data?.length}</strong> отчетов
+             По запросу <strong>{inputValue}</strong> Найдено: <strong>{initialList?.length}</strong> отчетов
             </div>
           </div>
         </Affix>  
 
-        {/* <Row gutter={16}>
+        <Row gutter={16}>
         {
         // const data: IReport[] = filteredList?.length? filteredList : initialList
-        data?.map((item: IReport ) => ( 
+        // const data: IReport[] = initialList
+        initialList?.length && initialList?.map((item: IReport ) => ( 
             <Col span={8}  key={item.id}>
               <Card
                 hoverable
@@ -146,7 +138,7 @@ export default function SearchReport() {
 
         ))}
         </Row>
-        <TheDrawer open={open} onClose={onClose} showDrawer={showDrawer} item={curentItem}/> */}
+        <TheDrawer open={open} onClose={onClose} showDrawer={showDrawer} item={curentItem}/> 
       
 
     </div>
