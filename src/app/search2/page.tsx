@@ -5,7 +5,6 @@ import { getReportsByQuery } from '../actions/getAll'
 import { IReport, IResultReport } from '../types';
 import { Affix, Input, Spin  } from 'antd'
 
-// import Search from 'antd/es/transfer/search'
 import type { SearchProps } from 'antd/es/input/Search';
 const { Search } = Input;
 import { Card, Col, Row } from 'antd';
@@ -15,8 +14,8 @@ import { TheDrawer } from '@/components/TheDrawer/TheDrawer';
 export default function SearchReport() {
   // const [data, setData] = useState<IResultReport>()
   const [inputValue, setInputValue] = useState<string>("")
+  const [message, setMessage] = useState<string>("")
   const [initialList, setInitialList] = useState<IReport[]>()
-  // const [filteredList, setFilteredList] = useState<IReport[]>()
   const [data, setData] = useState<IReport[]>()
 
   const [isLoading, setLoading] = useState<boolean>(false)
@@ -44,14 +43,19 @@ export default function SearchReport() {
 
   const onSearch: SearchProps['onSearch'] = (value, _e, info) => 
   {
-    console.log(info?.source, value);
-    console.log(info);
-    console.log(`isLoading : ${isLoading}`);
+    // console.log(info?.source, value);
+    // console.log(info);
+    // console.log(`isLoading : ${isLoading}`);
     
     setInputValue(value)
+
     if(value.length > 3){
       console.log(`БУдем искать: ${value}`);
       getData(value)
+      setMessage(`По запросу: `)
+    }else{
+      setInitialList([])
+      setMessage('Введите поисковый запрос более 3-х символов')
     }
   }
   
@@ -69,33 +73,6 @@ export default function SearchReport() {
     setOpen(false);
   };
 
-  
-// Search Handler
-// // const searchHandler = useCallback(() => {
-// //   // setLoading(true)
-// //   const filteredData = initialList?.filter((report: IReport) => {
-// //     return report.report_name.toLowerCase().includes(inputValue.toLowerCase())
-// //   })
-// //   setFilteredList(filteredData)
-// //   inputValue?.length? setData(filteredList) : setData(initialList)
-// //   // setLoading(false)
-// // }, [initialList, inputValue, filteredList])
-
-// // EFFECT: Search Handler
-// useEffect(() => {
-//   // Debounce search handler
-//   const timer = setTimeout(() => {
-//     searchHandler()
-//   }, 500)
-
-//   // Cleanup
-//   return () => {
-//     clearTimeout(timer)
-    
-//   }
-// }, [searchHandler])
-
-
   return (
     <>
     <div className="mt-20">
@@ -106,7 +83,7 @@ export default function SearchReport() {
           <div>
             <Search placeholder="ищем в названии отчета" onSearch={onSearch} allowClear />
             <div className='bg-slate-100 rounded-md p-2 text-center text-sm'>
-             По запросу <strong>{inputValue}</strong> Найдено: <strong>{initialList?.length}</strong> отчетов
+              {message} <strong>{inputValue.length > 3 ? inputValue: ""}</strong> Найдено: <strong>{initialList?.length }</strong> отчетов
             </div>
           </div>
         </Affix>  
