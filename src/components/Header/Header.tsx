@@ -9,7 +9,6 @@ const navigation = [
   { name: 'Статистика', href: '/', current: true },
   { name: 'Отчеты', href: '/report_table', current: false },
   { name: 'Поиск', href: '/search', current: false },
-  { name: 'Поиск2', href: '/search2', current: false },
   { name: 'О программе', href: '/about', current: false },
 ]
 

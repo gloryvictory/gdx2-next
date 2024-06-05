@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button, Col, Divider, Drawer, Row } from 'antd';
 import { type } from 'os';
-import { IReport } from '../types';
+import { IReport } from '@/app/types';
 
 type PropsDrawer = {
   open:boolean,

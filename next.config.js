@@ -6,3 +6,15 @@ const nextConfig = {
 
 module.exports = nextConfig
 // next.config.js
+
+
+
+// module.exports = {
+//   nextConfig,
+//   webpack(config, options) {
+//     return config
+//   }
+// }
+
+// const withYAML = require('next-yaml')
+// module.exports = withYAML(module.exports)
