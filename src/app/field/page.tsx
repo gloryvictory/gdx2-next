@@ -33,6 +33,9 @@ useEffect(() => {
   getData()
 }, [])
 
+
+
+
   return (
     <>
     <Metadata seoTitle={title} seoDescription={title} />
