@@ -98,3 +98,10 @@ export async function getReportsByQuery(query: string| undefined): Promise<IResu
   if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
   return response.json();
 }
+
+export async function getMessages(): Promise<IResult>  {
+  const url = `http://${host}:${port}/api/v1/report/message`
+  const response = await fetch( url );
+  if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
+  return response.json();
+}
