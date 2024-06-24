@@ -26,8 +26,20 @@ const MessageForm: React.FC<IMessageProps> = ({ isOpen }: IMessageProps) => {
   const [data, setData] = useState<IMessage>(null)
   const [isOk, setOk] = useState<boolean>(false)
   const [isModalOpen, setIsModalOpen] = useState(isOpen);
-
   const [messageApi, contextHolder] = message.useMessage();
+
+
+
+  
+/* eslint-disable no-template-curly-in-string */
+const validateMessages = {
+  required: '${label} is required!',
+  types: {
+    email: 'Не верный формат ${label}! Введите правильный!',
+  },
+};
+/* eslint-enable no-template-curly-in-string */
+
 
   // POST request using fetch inside useEffect React hook
 const postData = async () => {
@@ -60,26 +72,33 @@ const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
   console.log('Success:', values);
   const { fio, email, message }  = values;
 
-  if(fio &&  email  &&  message){
+  if(fio.length &&  email.includes('@') && email.endsWith('.ru') &&  message.length){
     const msg:IMessage = {
       "fio": fio,
       "email": email,
       "name_ru": message
     }
     setOk(true)
-    setData(msg)  
+    setData(msg)
+    setTimeout(() => {
+      setIsModalOpen(false);
+      isOpen = false;
+    }, 500);
+  }else {
+    setOk(false)
+    isOpen = false;
   }
   
 };
 
-const onValuesChange: FormProps<FieldType>['onValuesChange'] = (errorInfo) => {
-  console.log('Changed:', errorInfo);
-};
+// const onValuesChange: FormProps<FieldType>['onValuesChange'] = (errorInfo) => {
+//   console.log('Changed:', errorInfo);
+// };
 
 
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
+// const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+//   console.log('Failed:', errorInfo);
+// };
 
 
 // onOk={handleOk} 
@@ -105,10 +124,11 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
           wrapperCol={{ span: 16 }}
           style={{ maxWidth: 600 }}
           initialValues={{ remember: true }}
-          onValuesChange={onValuesChange}
+          // onValuesChange={onValuesChange}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
+          // onFinishFailed={onFinishFailed}
           autoComplete="off"
+          validateMessages={validateMessages}
           >
           <Form.Item<FieldType>
             label="Фамилия Имя Отчество"
@@ -120,8 +140,9 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 
           <Form.Item<FieldType>
             label="Email"
-            name="email"
-            rules={[{ required: true, message: 'Введите ваш email!' }]}
+            name={'email'}
+            rules={[{ required: true,  type: 'email', }]}
+            // message: 'Введите ваш email!'
           >
             <Input />
           </Form.Item>
@@ -140,7 +161,15 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
             </Button>
             {/* disabled={!isOk} */}
           </Form.Item>
+
+          {/* {isOk ? {<Text type="success">Ant Design (success)</Text>} : null;} */}
         </Form>
+
+        {isOk ? <div className='text-center text-lime-500'>Отправлено!</div> : null}
+        {/* {isOk ? () =>{messageApi.info('Hello, Ant Design!')} : null} */}
+        {/*  */}
+        
+
       </Modal>
 
     </>
