@@ -13,7 +13,9 @@ type FieldType = {
 };
 
 export type IMessageProps = {
-  isOpen?:boolean
+  open?:boolean 
+  onOk: ()=>void;
+  onCancel: ()=>void;
 } 
 
 export type IMessage = {
@@ -22,12 +24,11 @@ export type IMessage = {
   name_ru: string;
 }
 
-const MessageForm: React.FC<IMessageProps> = ({ isOpen }: IMessageProps) => {
+const MessageForm: React.FC<IMessageProps> = ({ open, onOk, onCancel }: IMessageProps) => {
   const [data, setData] = useState<IMessage>(null)
   const [isOk, setOk] = useState<boolean>(false)
-  const [isModalOpen, setIsModalOpen] = useState(isOpen);
+  const [isModalOpen, setIsModalOpen] = useState(open);
   const [messageApi, contextHolder] = message.useMessage();
-
 
 
   
@@ -52,6 +53,8 @@ const postData = async () => {
     const response = await fetch('http://localhost:8001/api/v1/report/message', requestOptions);
     if (response.ok)  {
       messageApi.info('Сообщение отправлено!');
+      open=false;
+      // router.reload();
     }    
   }
 }
@@ -61,10 +64,10 @@ useEffect(() => {
 }, [data]);
 
 
-const handleCancel = () => {
-  setIsModalOpen(false);
-  isOpen = false;
-};
+// const handleCancel = () => {
+//   setIsModalOpen(false);
+//   open = false;
+// };
 
 
 
@@ -72,7 +75,7 @@ const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
   console.log('Success:', values);
   const { fio, email, message }  = values;
 
-  if(fio.length &&  email.includes('@') && email.endsWith('.ru') &&  message.length){
+  if(fio.length &&  email.includes('@') &&  message.length){
     const msg:IMessage = {
       "fio": fio,
       "email": email,
@@ -82,11 +85,11 @@ const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     setData(msg)
     setTimeout(() => {
       setIsModalOpen(false);
-      isOpen = false;
+      open = false;
     }, 500);
   }else {
     setOk(false)
-    isOpen = false;
+    open = false;
   }
   
 };
@@ -94,20 +97,18 @@ const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
 // const onValuesChange: FormProps<FieldType>['onValuesChange'] = (errorInfo) => {
 //   console.log('Changed:', errorInfo);
 // };
-
-
 // const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 //   console.log('Failed:', errorInfo);
 // };
-
-
 // onOk={handleOk} 
-  return (
+
+return (
     <>
     <Modal 
       title="Введите Ваши данные и пожелание" 
       open={isModalOpen} 
-      onCancel={handleCancel}  
+      onCancel={onCancel}
+      onOk={onOk}  
       footer={(_, {  }) => (
         <>
          {/* disabled={!isOk} */}
@@ -124,12 +125,12 @@ const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
           wrapperCol={{ span: 16 }}
           style={{ maxWidth: 600 }}
           initialValues={{ remember: true }}
-          // onValuesChange={onValuesChange}
           onFinish={onFinish}
-          // onFinishFailed={onFinishFailed}
           autoComplete="off"
           validateMessages={validateMessages}
-          >
+          // onValuesChange={onValuesChange}
+          // onFinishFailed={onFinishFailed}
+        >
           <Form.Item<FieldType>
             label="Фамилия Имя Отчество"
             name="fio"
@@ -161,16 +162,9 @@ const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
             </Button>
             {/* disabled={!isOk} */}
           </Form.Item>
-
-          {/* {isOk ? {<Text type="success">Ant Design (success)</Text>} : null;} */}
         </Form>
-
-        {isOk ? <div className='text-center text-lime-500'>Отправлено!</div> : null}
-        {/* {isOk ? () =>{messageApi.info('Hello, Ant Design!')} : null} */}
-        {/*  */}
-        
-
-      </Modal>
+        {isOk && <div className='text-center text-lime-500'>Отправлено!</div> }
+    </Modal>
 
     </>
   );

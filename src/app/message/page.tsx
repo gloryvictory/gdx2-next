@@ -9,6 +9,8 @@ import { getMessages } from '../actions/getAll';
 
 import Metadata from '@/components/Metadata/Metadata';
 import MessageForm from '@/components/MessageForm/MessageForm';
+// import {  useRouter } from 'next/navigation';
+import Author from '../author/page';
 
 
 const Message: React.FC = () => {
@@ -17,6 +19,19 @@ const Message: React.FC = () => {
   const [isLoading, setLoading] = useState<boolean>(false)
   // const [isOk, setOk] = useState<boolean>(false)
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // const router = useRouter()
+
+  // const showModal = () => {
+  //   setIsModalOpen(true);
+  // };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const getData = async () => {
     setLoading(true)
@@ -28,6 +43,12 @@ const Message: React.FC = () => {
   useEffect(() => {
     getData()
   }, [])
+  
+  // useEffect(() => {
+  //   if(isModalOpen) {
+  //     router.reload(); 
+  //   }
+  // }, [isModalOpen])
 
   return (
     <>
@@ -40,14 +61,15 @@ const Message: React.FC = () => {
           
           <Button 
             className="min-w-full"
-            onClick={()=>setIsModalOpen(true) }
+            onClick={()=>{setIsModalOpen(true); console.log(`isModalOpen: ${isModalOpen}`) } }
+            disabled={isModalOpen}
           >
             Добавить свое Пожелание
           </Button>
         </div>
       </div>
       
-      {isModalOpen ? <MessageForm isOpen={isModalOpen}  /> : null}
+      {isModalOpen ? <MessageForm open={isModalOpen} onOk={handleOk} onCancel={handleCancel}   /> : null}
       
 
       <div className="mt-2">
@@ -55,8 +77,8 @@ const Message: React.FC = () => {
 
         {/* <ol type="1" className="marker:text-sky-400 list-disc pl-5 space-y-3 text-slate-500"> */}
         <ol className="marker:text-sky-400 pl-5 space-y-3 text-slate-500 list-decimal ml-10 ">
-          {data?.data.map((item: any ) => (                
-            <Tooltip key={item.id} placement="right" title={ 'Дата: ' + new Date(item.lastupdate).toLocaleDateString('ru-RU')} >
+          {data && data?.data.map((item: any ) => (                
+            <Tooltip key={item.id} placement="right" title={ 'Дата: ' + new Date(item.lastupdate).toLocaleDateString('ru-RU') + " ФИО: " + ` ${item.fio}` + " Почта: " + ` ${item.email}`} >
               <li key={item.id} className={ "box-border rounded bg-slate-100 w-96 pl-2 hover:bg-slate-700 hover:text-sky-400"} > 
                   <span className="font-mono">{item.name_ru}</span>
               </li>
