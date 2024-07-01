@@ -64,7 +64,7 @@ const Message: React.FC = () => {
             onClick={()=>{setIsModalOpen(true); console.log(`isModalOpen: ${isModalOpen}`) } }
             disabled={isModalOpen}
           >
-            Добавить свое Пожелание
+            {!isModalOpen ? "Добавить свое Пожелание" : "Ваше пожелание принято!"} 
           </Button>
         </div>
       </div>
@@ -79,7 +79,7 @@ const Message: React.FC = () => {
         <ol className="marker:text-sky-400 pl-5 space-y-3 text-slate-500 list-decimal ml-10 ">
           {data && data?.data.map((item: any ) => (                
             <Tooltip key={item.id} placement="right" title={ 'Дата: ' + new Date(item.lastupdate).toLocaleDateString('ru-RU') + " ФИО: " + ` ${item.fio}` + " Почта: " + ` ${item.email}`} >
-              <li key={item.id} className={ "box-border rounded bg-slate-100 w-96 pl-2 hover:bg-slate-700 hover:text-sky-400"} > 
+              <li key={item.id} className={ "w-full box-border rounded bg-slate-100 w-96 pl-2 hover:bg-slate-700 hover:text-sky-400"} > 
                   <span className="font-mono">{item.name_ru}</span>
               </li>
             </Tooltip>

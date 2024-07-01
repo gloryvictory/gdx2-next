@@ -5,6 +5,7 @@ import React from 'react';
 import type { FormProps } from 'antd';
 import { Button, Form, Input, Modal, message  } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import { cfg } from '@/app/cfg/cfg';
 
 type FieldType = {
   fio?: string;
@@ -29,7 +30,7 @@ const MessageForm: React.FC<IMessageProps> = ({ open, onOk, onCancel }: IMessage
   const [isOk, setOk] = useState<boolean>(false)
   const [isModalOpen, setIsModalOpen] = useState(open);
   const [messageApi, contextHolder] = message.useMessage();
-
+  const {host, port} = cfg
 
   
 /* eslint-disable no-template-curly-in-string */
@@ -50,7 +51,7 @@ const postData = async () => {
     body: JSON.stringify(data)
   };
   if (data){
-    const response = await fetch('http://localhost:8001/api/v1/report/message', requestOptions);
+  const response = await fetch(`http://${host}:${port}/api/v1/report/message`, requestOptions);
     if (response.ok)  {
       messageApi.info('Сообщение отправлено!');
       open=false;
