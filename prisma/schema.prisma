@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model field {
+  id        Int                      @id @default(autoincrement())
+  geom      Unsupported("geometry")?
+  year      BigInt?
+  tip       String?                  @db.VarChar(10)
+  areaoil   Float?
+  nom       BigInt?
+  oil       String?                  @db.VarChar(254)
+  gas       String?                  @db.VarChar(254)
+  condensat String?                  @db.VarChar(254)
+  name_ru   String?                  @db.VarChar(254)
+  oblast    String?                  @db.VarChar(254)
+  stadia    String?                  @db.VarChar(254)
+  note      String?                  @db.VarChar(254)
+  istochnik String?                  @db.VarChar(254)
+  ftype     String?                  @db.VarChar(8)
+}
+
+model lu {
+  id         Int                      @id @default(autoincrement())
+  geom       Unsupported("geometry")?
+  areaoil    Float?
+  area_lic   String?                  @db.VarChar(10)
+  year       BigInt?
+  nom_zsngp  BigInt?
+  nom_list   String?                  @db.VarChar(12)
+  nom        BigInt?
+  data_start DateTime?                @db.Date
+  data_end   DateTime?                @db.Date
+  vid        String?                  @db.VarChar(50)
+  ftype      String?                  @db.VarChar(5)
+  name_rus   String?                  @db.VarChar(100)
+  anumber    String?                  @db.VarChar(10)
+  sostiyanie String?                  @db.VarChar(50)
+  priznak    String?                  @db.VarChar(50)
+  nom_lic    String?                  @db.VarChar(50)
+  head_nedro String?                  @db.VarChar(100)
+  oblast     String?                  @db.VarChar(100)
+  zngp       String?                  @db.VarChar(10)
+  nedropolz  String?                  @db.VarChar(150)
+  nedropol   String?                  @db.VarChar(100)
+  nom_urfo   BigInt?
+  authority  String?                  @db.VarChar(254)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model spatial_ref_sys {
+  srid      Int     @id
+  auth_name String? @db.VarChar(256)
+  auth_srid Int?
+  srtext    String? @db.VarChar(2048)
+  proj4text String? @db.VarChar(2048)
+}
+
+model sta {
+  id         Int                      @id @default(autoincrement())
+  geom       Unsupported("geometry")?
+  web_uk_id  String?                  @db.VarChar(18)
+  vid_iz     String?                  @db.VarChar(26)
+  tgf        String?                  @db.VarChar(31)
+  n_uk_tgf   String?                  @db.VarChar(8)
+  n_uk_rosg  String?                  @db.VarChar(6)
+  name_otch  String?                  @db.VarChar(254)
+  name_otch1 String?                  @db.VarChar(254)
+  avts       String?                  @db.VarChar(254)
+  god_nach   String?                  @db.VarChar(4)
+  god_end    String?                  @db.VarChar(4)
+  org_isp    String?                  @db.VarChar(193)
+  in_n_tgf   String?                  @db.VarChar(9)
+  in_n_rosg  String?                  @db.VarChar(10)
+  nom_1000   String?                  @db.VarChar(4)
+  method     String?                  @db.VarChar(13)
+  scale      String?                  @db.VarChar(26)
+}
+
+model stl {
+  id         Int                      @id @default(autoincrement())
+  geom       Unsupported("geometry")?
+  web_uk_id  String?                  @db.VarChar(18)
+  vid_iz     String?                  @db.VarChar(26)
+  tgf        String?                  @db.VarChar(31)
+  n_uk_tgf   String?                  @db.VarChar(6)
+  n_uk_rosg  String?                  @db.VarChar(6)
+  name_otch  String?                  @db.VarChar(254)
+  name_otch1 String?                  @db.VarChar(108)
+  avts       String?                  @db.VarChar(179)
+  god_nach   String?                  @db.VarChar(4)
+  god_end    String?                  @db.VarChar(4)
+  org_isp    String?                  @db.VarChar(192)
+  in_n_tgf   String?                  @db.VarChar(6)
+  in_n_rosg  String?                  @db.VarChar(6)
+  nom_1000   String?                  @db.VarChar(4)
+  method     String?                  @db.VarChar(13)
+  scale      String?                  @db.VarChar(26)
+}
+
+model stp {
+  id         Int                      @id @default(autoincrement())
+  geom       Unsupported("geometry")?
+  web_uk_id  String?                  @db.VarChar(18)
+  vid_iz     String?                  @db.VarChar(26)
+  tgf        String?                  @db.VarChar(31)
+  n_uk_tgf   String?                  @db.VarChar(5)
+  n_uk_rosg  String?                  @db.VarChar(6)
+  name_otch  String?                  @db.VarChar(254)
+  name_otch1 String?                  @db.VarChar(254)
+  avts       String?                  @db.VarChar(161)
+  god_nach   String?                  @db.VarChar(4)
+  god_end    String?                  @db.VarChar(4)
+  org_isp    String?                  @db.VarChar(190)
+  in_n_tgf   String?                  @db.VarChar(7)
+  in_n_rosg  String?                  @db.VarChar(6)
+  nom_1000   String?                  @db.VarChar(4)
+  method     String?                  @db.VarChar(13)
+  scale      String?                  @db.VarChar(26)
+}
