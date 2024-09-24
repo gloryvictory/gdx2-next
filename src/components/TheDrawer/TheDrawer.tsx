@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { Button, Col, Divider, Drawer, Row } from 'antd';
-import { type } from 'os';
+// import { type } from 'os';
 import { IReport } from '@/app/types';
 
 type PropsDrawer = {
@@ -32,12 +32,10 @@ const DescriptionItem = ({ title, content }: DescriptionItemProps) => (
 );
 
 
-function OpenExplorerWindow() {
+// function OpenExplorerWindow() {
   // window.open("file:///" + filePath);
   // window.open("file:///c:/");
-  
-  
-  // var settings = 'height=550,width=775,top=' + (screen.height - 550) / 2 + ',left=' + (screen.width - 775) / 2 + ',scrollbars=yes,resizable=no';
+    // var settings = 'height=550,width=775,top=' + (screen.height - 550) / 2 + ',left=' + (screen.width - 775) / 2 + ',scrollbars=yes,resizable=no';
   // var win = window.open('file:///c:/', 'ExplorerWindow', settings);
   // console.log(win);
   // win?.focus();
@@ -45,7 +43,7 @@ function OpenExplorerWindow() {
   // // if (parseInt(navigator.appVersion) >= 4) {
   //   win?.window.focus();
   // }
-}
+// }
 
 export const TheDrawer: React.FC<PropsDrawer> = ({open, onClose,showDrawer, item }:PropsDrawer) => {
   
