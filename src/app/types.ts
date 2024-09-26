@@ -62,3 +62,9 @@ export interface IReport {
   lastupdate: string
   report_fts: string
 }
+
+export interface ICountOnMap {
+  sta_count: number
+  stl_count: number
+  stp_count: number
+}

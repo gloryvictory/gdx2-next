@@ -2,10 +2,12 @@ import { cfg } from "../cfg/cfg"
 import { ICount } from "../types";
 
 
-const {host, port} = cfg
+const {gdx2_host_port} = cfg
+const api_report = `api/v1/report`
+const api_gdx2 = `http://${gdx2_host_port}/${api_report}`
 
 export  async function getAuthorCount(): Promise<ICount> {
-  const url = `http://${host}:${port}/api/v1/report/author/count`
+  const url = `${api_gdx2}/author/count`
   console.log(url)
   const res = await fetch(url, { next: { revalidate: cfg.delay,},});
 
@@ -18,7 +20,7 @@ export  async function getAuthorCount(): Promise<ICount> {
 
 
 export  async function getReportCount(): Promise<ICount> {
-  const url = `http://${host}:${port}/api/v1/report/count`
+  const url = `${api_gdx2}/count`
   console.log(url)
   const res = await fetch(url, { next: { revalidate: cfg.delay,},});
 
@@ -30,7 +32,7 @@ export  async function getReportCount(): Promise<ICount> {
 }
 
 export  async function getListCount(): Promise<ICount> {
-  const url = `http://${host}:${port}/api/v1/report/list/count`
+  const url = `${api_gdx2}/list/count`
   console.log(url)
   const res = await fetch(url, { next: { revalidate: cfg.delay,},});
 
@@ -42,7 +44,7 @@ export  async function getListCount(): Promise<ICount> {
 }
 
 export  async function getSubrfCount(): Promise<ICount> {
-  const url = `http://${host}:${port}/api/v1/report/subrf/count`
+  const url = `${api_gdx2}/subrf/count`
   console.log(url)
   const res = await fetch(url, { next: { revalidate: cfg.delay,},});
 
@@ -54,7 +56,7 @@ export  async function getSubrfCount(): Promise<ICount> {
 }
 
 export  async function getOrgCount(): Promise<ICount> {
-  const url = `http://${host}:${port}/api/v1/report/org/count`
+  const url = `${api_gdx2}/org/count`
   console.log(url)
   const res = await fetch(url, { next: { revalidate: cfg.delay,},});
 
@@ -66,7 +68,7 @@ export  async function getOrgCount(): Promise<ICount> {
 }
 
 export  async function getAreaCount(): Promise<ICount> {
-  const url = `http://${host}:${port}/api/v1/report/area/count`
+  const url = `${api_gdx2}/area/count`
   console.log(url)
   const res = await fetch(url, { next: { revalidate: cfg.delay,},});
 
@@ -78,7 +80,7 @@ export  async function getAreaCount(): Promise<ICount> {
 }
 
 export  async function getFieldCount(): Promise<ICount> {
-  const url = `http://${host}:${port}/api/v1/report/field/count`
+  const url = `${api_gdx2}/field/count`
   console.log(url)
   const res = await fetch(url, { next: { revalidate: cfg.delay,},});
 
@@ -90,7 +92,7 @@ export  async function getFieldCount(): Promise<ICount> {
 }
 
 export  async function getLuCount(): Promise<ICount> {
-  const url = `http://${host}:${port}/api/v1/report/lu/count`
+  const url = `${api_gdx2}/lu/count`
   console.log(url)
   const res = await fetch(url, { next: { revalidate: cfg.delay,},});
 
@@ -102,7 +104,7 @@ export  async function getLuCount(): Promise<ICount> {
 }
 
 export  async function getPiCount(): Promise<ICount> {
-  const url = `http://${host}:${port}/api/v1/report/pi/count`
+  const url = `${api_gdx2}/pi/count`
   console.log(url)
   const res = await fetch(url, { next: { revalidate: cfg.delay,},});
 
@@ -114,7 +116,7 @@ export  async function getPiCount(): Promise<ICount> {
 }
 
 export  async function getVidRabCount(): Promise<ICount> {
-  const url = `http://${host}:${port}/api/v1/report/vid_rab/count`
+  const url = `${api_gdx2}/vid_rab/count`
   console.log(url)
   const res = await fetch(url, { next: { revalidate: cfg.delay,},});
 
@@ -126,7 +128,7 @@ export  async function getVidRabCount(): Promise<ICount> {
 }
 
 // export  async function getCountByObj(obj: string): Promise<ICount> {
-//   const url = `http://${host}:${port}/api/v1/report/${obj}/count`
+//   const url = `${api_gdx2}/${obj}/count`
 //   console.log(url)
 //   const res = await fetch(url);
 

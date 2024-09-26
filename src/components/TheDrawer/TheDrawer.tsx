@@ -1,8 +1,12 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Divider, Drawer, Row } from 'antd';
 // import { type } from 'os';
-import { IReport } from '@/app/types';
+import { ICountOnMap, IReport } from '@/app/types';
+import { getCountOnMap } from '@/app/actions/getMap';
+// import About from '../../app/about/page';
+
+
 
 type PropsDrawer = {
   open:boolean,
@@ -47,6 +51,23 @@ const DescriptionItem = ({ title, content }: DescriptionItemProps) => (
 
 export const TheDrawer: React.FC<PropsDrawer> = ({open, onClose,showDrawer, item }:PropsDrawer) => {
   
+  const [data, setData] = useState<ICountOnMap>()
+  const [isLoading, setLoading] = useState<boolean>(false)
+  
+  const getData = async (rgf: string) => {
+    setLoading(true)
+
+    const items : ICountOnMap = await getCountOnMap(rgf)
+    console.log(items)
+    setData(items)
+    setLoading(false)
+  }
+  
+  useEffect(() => {
+    console.log(item?.rgf)
+    getData(item?.rgf)
+  }, [item])
+
   return (
     <>
       <Button type="primary" onClick={showDrawer}>
@@ -91,6 +112,20 @@ export const TheDrawer: React.FC<PropsDrawer> = ({open, onClose,showDrawer, item
             <input type="file"  title='sdfsdsdfsdf'/>  */}
             <DescriptionItem title="Комментарии" content={item?.comments} />
             <DescriptionItem title="Дата обновления" content={new Date(item?.lastupdate!).toLocaleDateString('ru-RU')} />
+
+            {isLoading
+            ? <div>Loading...</div> 
+            : <DescriptionItem title="На карте (Точки)" content={data ? data.sta_count : 0} />
+            }
+            {isLoading
+            ? <div>Loading...</div> 
+            : <DescriptionItem title="На карте (Линии)" content={data ? data.stl_count : 0} />
+            }
+            {isLoading
+            ? <div>Loading...</div> 
+            : <DescriptionItem title="На карте (Полигоны)" content={data ? data.stl_count : 0} />
+            }
+
       </Drawer>
     </>
   );
