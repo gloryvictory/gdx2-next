@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, Suspense, MouseEventHandler, DetailedHTMLProps, LiHTMLAttributes } from 'react'
 import { getReportsByQuery } from '../actions/getAll'
-import { IReport, IResultReport } from '../types';
+import { ICountOnMap, IReport, IResultReport } from '../types';
 import { Affix, Input, Spin  } from 'antd'
 
 import type { SearchProps } from 'antd/es/input/Search';
@@ -10,36 +10,49 @@ const { Search } = Input;
 import { Card, Col, Row } from 'antd';
 import Meta from 'antd/es/card/Meta'
 import { TheDrawer } from '@/components/TheDrawer/TheDrawer';
+import { getCountOnMap } from '../actions/getMap';
+
+
+
+const layoutStyle = {
+  marginTop: '16px',
+  marginBottom: '16px',
+  marginLeft: '26px',
+  zIndex: '1',
+  width: 'calc(100% - 30px)',
+};
+
 
 export default function SearchReport() {
   // const [data, setData] = useState<IResultReport>()
   const [inputValue, setInputValue] = useState<string>("")
   const [message, setMessage] = useState<string>("")
-  const [initialList, setInitialList] = useState<IReport[]>()
-  const [data, setData] = useState<IReport[]>()
 
-  const [isLoading, setLoading] = useState<boolean>(false)
   const [open, setOpen] = useState(false);
   const [curentItem, setCurentItem] = useState<IReport>();
 
-  
-  
-  
-  const layoutStyle = {
-    marginTop: '16px',
-    marginBottom: '16px',
-    marginLeft: '26px',
-    zIndex: '1',
-    width: 'calc(100% - 30px)',
-  };
+  const [isLoading, setLoading] = useState<boolean>(false)
+  const [initialList, setInitialList] = useState<IReport[]>()
+  // const [data, setData] = useState<IReport[]>()
+  // const [mapdata, setMapData] = useState<ICountOnMap>()
 
+    
+  
   const getData = async (query: string) => {
     setLoading(true)
     const reports = await getReportsByQuery(query)
-    // setData(reports)
     setInitialList(reports?.data)
     setLoading(false)
   }
+
+  // const getMapData = async (rgf: string) => {
+  //   setLoading(true)
+  //   const map_items : ICountOnMap = await getCountOnMap(rgf)
+  //   console.log(map_items)
+  //   setMapData(map_items)
+  //   setLoading(false)
+  // }
+
 
   const onSearch: SearchProps['onSearch'] = (value, _e, info) => 
   {
@@ -62,8 +75,8 @@ export default function SearchReport() {
   
   
   // useEffect(() => {
-  //   getData()
-  // }, [inputValue])
+  //   getMapData(initialList?.)
+  // }, [initialList])
   
   const showDrawer = () => {
     setOpen(true);
@@ -102,9 +115,13 @@ export default function SearchReport() {
                 key={item.id}
                 title={item.id}
                 actions={[
-                  `№ РГФ: ${item.rgf.length? `${item.rgf}` : ''}`,
-                  `${item.tgf.length? `${item.tgf}` : ''}`,                  
-                  `Год: ${item.year_str.length? `${item.year_str}` : ''}`,,
+                  `№ РГФ: ${item.rgf.length ? `${item.rgf}` : ''}`,
+                  `${item.tgf.length ? `${item.tgf}` : ''}`,                  
+                  `Год: ${item.year_str.length ? `${item.year_str}` : ''}`,
+                  // `Point: ${item.rgf.length ? `${map_items = await getCountOnMap(item.rgf)}` : ''}`,
+
+                  
+                  ,
                 ]}
                 onClick={()=>{setCurentItem(item);showDrawer()}}
               >
