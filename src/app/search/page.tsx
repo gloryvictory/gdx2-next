@@ -11,6 +11,7 @@ import { Card, Col, Row } from 'antd';
 import Meta from 'antd/es/card/Meta'
 import { TheDrawer } from '@/components/TheDrawer/TheDrawer';
 import { getCountOnMap } from '../actions/getMap';
+import { ReportCard } from './ReportCard';
 
 
 
@@ -35,7 +36,7 @@ export default function SearchReport() {
   const [initialList, setInitialList] = useState<IReport[]>()
   // const [data, setData] = useState<IReport[]>()
   // const [mapdata, setMapData] = useState<ICountOnMap>()
-
+  const [sta, setSta] = useState<string>("")
     
   
   const getData = async (query: string) => {
@@ -78,6 +79,12 @@ export default function SearchReport() {
   //   getMapData(initialList?.)
   // }, [initialList])
   
+  // const getMapItems_sta = async (item: IReport) : Promise<string>    => {
+  //   const {sta_count}  = await getCountOnMap(item?.rgf)
+  //   setSta(sta_count.toString())
+  //   return sta_count.toString()
+  // }
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -105,9 +112,12 @@ export default function SearchReport() {
         {
         // const data: IReport[] = filteredList?.length? filteredList : initialList
         // const data: IReport[] = initialList
-        initialList?.length && initialList?.map((item: IReport ) => ( 
+        initialList?.length && initialList?.map((item: IReport ) => (
+          
+          // {getMapItems_sta(item)}
             <Col span={8}  key={item.id}>
-              <Card
+              <ReportCard item={item} onClick={()=>{setCurentItem(item); showDrawer()}}/>
+              {/* <Card
                 hoverable
                 type="inner"
                 style={{  margin: '5px' }}
@@ -118,15 +128,14 @@ export default function SearchReport() {
                   `№ РГФ: ${item.rgf.length ? `${item.rgf}` : ''}`,
                   `${item.tgf.length ? `${item.tgf}` : ''}`,                  
                   `Год: ${item.year_str.length ? `${item.year_str}` : ''}`,
-                  // `Point: ${item.rgf.length ? `${map_items = await getCountOnMap(item.rgf)}` : ''}`,
-
-                  
+                  `P: ${item.rgf.length ? `${getMapItems_sta(item)}` : ''}`,
                   ,
                 ]}
-                onClick={()=>{setCurentItem(item);showDrawer()}}
+                onClick={()=>{setCurentItem(item); showDrawer()}}
+                
               >
                 <Meta title={item.author_name} description={item.report_name} />
-              </Card>
+              </Card> */}
             </Col>
             
 
