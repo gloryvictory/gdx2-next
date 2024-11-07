@@ -1,10 +1,11 @@
 import { cfg } from "../cfg/cfg"
 import { IResult, IResultReport } from "../types";
 
-const {gdx2_host_port} = cfg
-const api_report = `api/v1/report`
-const api_gdx2 = `http://${gdx2_host_port}/${api_report}`
+const {gdx2_host_port, gdx2_api} = cfg
 
+
+const api_gdx2 = `http://${gdx2_host_port}/${gdx2_api}/report`
+// api_report : `api/v1/report`
 // export function getAuthor(id: number): Promise<FilmResponse> {
 //   return fetch(`https://swapi.tech/api/films/${id}`).then(res => res.json())
 // }
@@ -95,11 +96,17 @@ export async function getReports(): Promise<IResultReport> {
 
 
 export async function getReportsByQuery(query: string| undefined): Promise<IResultReport> {
-  const url = `${api_gdx2}/search/${query}`
+  const url = `${api_gdx2}/query?q=${query}`
   const response = await fetch( url );
   if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
   return response.json();
 }
+// export async function getReportsByQuery(query: string| undefined): Promise<IResultReport> {
+//   const url = `${api_gdx2}/search/${query}`
+//   const response = await fetch( url );
+//   if (!response.ok) throw new Error(`Unable to fetch ${url}!`);
+//   return response.json();
+// }
 
 export async function getMessages(): Promise<IResult>  {
   const url = `${api_gdx2}/message`

@@ -30,8 +30,9 @@ const MessageForm: React.FC<IMessageProps> = ({ open, onOk, onCancel }: IMessage
   const [isOk, setOk] = useState<boolean>(false)
   const [isModalOpen, setIsModalOpen] = useState(open);
   const [messageApi, contextHolder] = message.useMessage();
-  const {host, port} = cfg
-
+  // const {host, port} = cfg
+  const {gdx2_host_port, gdx2_api} = cfg
+  const api_gdx2 = `http://${gdx2_host_port}/${gdx2_api}/report`
   
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -51,7 +52,7 @@ const postData = async () => {
     body: JSON.stringify(data)
   };
   if (data){
-  const response = await fetch(`http://${host}:${port}/api/v1/report/message`, requestOptions);
+  const response = await fetch(`${api_gdx2}/message`, requestOptions);
     if (response.ok)  {
       messageApi.info('Сообщение отправлено!');
       open=false;

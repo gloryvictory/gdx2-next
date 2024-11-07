@@ -1,10 +1,10 @@
 import { cfg } from "../cfg/cfg"
 import { ICountOnMap } from '../types';
 
-const {gdx2_map_host_port} = cfg
+const {gdx2_host_port, gdx2_api} = cfg
 const api_report = `api/v1`
-const api_gdx2 = `http://${gdx2_map_host_port}/${api_report}`
-
+// const api_gdx2 = `http://${gdx2_map_host_port}/${api_report}`
+const api_gdx2 = `http://${gdx2_host_port}/${gdx2_api}`
 
 //  http://localhost:8002/api/v1/sta/count
 
