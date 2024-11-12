@@ -2,7 +2,7 @@ import { cfg } from '@/app/cfg/cfg';
 import type {LayerProps, SourceProps} from 'react-map-gl';
 
 
-const  {gdx2map_host_port_db_name } = cfg 
+const  {gdx2map_host_port_db_name, gdx2map_db_name } = cfg 
 
 // // Файлы
 // export const fileSource: SourceProps = {
@@ -85,8 +85,8 @@ export const lu_labels_Layer: LayerProps = {
 }
 
 // sta
-export const staSource: SourceProps = {
-  id:"gdx2.sta",
+export const sta_Source: SourceProps = {
+  id:`${gdx2map_db_name}.sta`,
   type:"vector",
   // tiles:["http://r48-vws03.zsniigg.local:7800/gdx2.lu/{z}/{x}/{y}.pbf"],
   tiles:[`${gdx2map_host_port_db_name}sta/{z}/{x}/{y}.pbf`],
@@ -94,13 +94,11 @@ export const staSource: SourceProps = {
   maxzoom: 22,
 }
 
-
-export const staLayer: LayerProps = {
+export const sta_Layer: LayerProps = {
   id: 'sta',
   type: 'fill',
-  source: 'gdx2.sta',
-  // filter: ['has', 'point_count'],
-  "source-layer": "gdx2.sta",
+  source: `${gdx2map_db_name}.sta`,
+  "source-layer": `${gdx2map_db_name}.sta`,
   paint: {
     // 'fill-color': '#c2e75b',
     "fill-outline-color": '#0a0171',

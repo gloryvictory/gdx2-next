@@ -1,17 +1,18 @@
 import { useCallback, useRef, useState } from "react";
 import type {MapRef} from 'react-map-gl/maplibre';
 import Map from "react-map-gl/maplibre";
-import {Source, Layer, FullscreenControl, GeolocateControl, NavigationControl, ScaleControl, AttributionControl, MapLayerMouseEvent, MapMouseEvent, MapGeoJSONFeature} from 'react-map-gl';
-import { fieldLayer, fieldSource, luLayer, luSource, staLayer, staSource } from "./layers";
+import {Source, Layer, FullscreenControl, GeolocateControl, NavigationControl, ScaleControl, AttributionControl,  MapMouseEvent,  IControl} from 'react-map-gl';
+import { fieldLayer, fieldSource, luLayer, luSource, sta_Layer, sta_Source } from "./layers";
 import maplibregl from 'maplibre-gl';
 
 
 import '@watergis/maplibre-gl-legend/dist/maplibre-gl-legend.css';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './gMap.css';
-import { LIGHT_MAP_STYLE } from "./basemaps";
+import { LIGHT_MAP_STYLE, basemaps_options, basemaps_styles } from "./basemaps";
 import { MaplibreStyleSwitcherControl } from "maplibre-gl-style-switcher";
 import { legend } from "./legend";
+import NavigationOptions from 'maplibre-gl';
 
 
 
@@ -23,6 +24,17 @@ const initialValueLocation = {
   pitch: 0
 };
 
+var nav = new maplibregl.NavigationControl({
+  showCompass: true,
+  showZoom: true,
+  visualizePitch: true,
+
+});
+
+
+var nav = new maplibregl.NavigationControl({
+
+})
 
 export default function MapLibreGL_Map() {
   const [lng, setLng] = useState<number>(61.86);
@@ -38,24 +50,41 @@ export default function MapLibreGL_Map() {
     console.log(fieldSource )
     console.log(luSource )
 
-    if (mapRef) {
 
+
+    if (mapRef) {
       const map = mapRef.current
+
+
+    //   class HelloWorldControl: IControl {
+    //     onAdd(map) {
+    //         this._map = map;
+    //         this._container = document.createElement('div');
+    //         this._container.className = 'maplibregl-ctrl';
+    //         this._container.textContent = 'Hello, world';
+    //         return this._container;
+    //     }
+    
+    //     onRemove() {
+    //         this._container.parentNode.removeChild(this._container);
+    //         this._map = undefined;
+    //     }
+    // }
       // console.log(map)
-      const sw_control:MaplibreStyleSwitcherControl =  new MaplibreStyleSwitcherControl(basemaps_styles, basemaps_options)
-      map?.addControl(sw_control);
+      // const sw_control:MaplibreStyleSwitcherControl =  new MaplibreStyleSwitcherControl(basemaps_styles, basemaps_options)
+      // map?.addControl(sw_control, 'top-right');
+      map?.addControl(nav);
+      // map.addControl(new maplibregl.NavigationControl());
       // map?.addControl(legend, 'top-right');
 
       map?.on('mouseenter', 'points-file', function (e) {
         map.getCanvas().style.cursor = 'pointer';
-      
-      const features = e?.features
-      // console.log(`features.length : ${features?.length}`)
-      if(features && features?.length){
-        // popup.setLngLat(e.lngLat.wrap()).setHTML(`<h1>Файлов: ${features?.length}</h1>`).addTo(map.getMap());  
-      }
-      console.log(e)
-        // do something
+        const features = e?.features
+        // console.log(`features.length : ${features?.length}`)
+        if(features && features?.length){
+          // popup.setLngLat(e.lngLat.wrap()).setHTML(`<h1>Файлов: ${features?.length}</h1>`).addTo(map.getMap());  
+        }
+        console.log(e)
       });
 
       // reset cursor to default when user is no longer hovering over a clickable feature
@@ -65,7 +94,7 @@ export default function MapLibreGL_Map() {
       })    
       
 
-      map?.on('mousemove', function (e: MapLayerMouseEvent) {
+      map?.on('mousemove', function (e: MapMouseEvent) {
         const ll = e.lngLat.wrap()        
         setLng(  (prev) => parseFloat(ll.lng.toFixed(4)));
         setLat(  (prev) => parseFloat(ll.lat.toFixed(4)));
@@ -105,11 +134,11 @@ export default function MapLibreGL_Map() {
   }, []);
   return (
   
-    <div id="map" className="map">
+    <div id="map" className="map mt-20 lg:w-auto lg:h-auto h-full w-screen">
       <Map
         id="mymap"
         initialViewState={initialValueLocation}
-        style={{ width: "100vw", height: "100vh" }}
+        // style={{ width: "100vw", height: "100vh" }}
         mapLib={maplibregl}
         mapStyle={LIGHT_MAP_STYLE}
         attributionControl={false}
@@ -129,8 +158,8 @@ export default function MapLibreGL_Map() {
             <Layer {...luLayer} />
         </Source>  
 
-        <Source {...staSource}   >
-            <Layer {...staLayer} />
+        <Source {...sta_Source}   >
+            <Layer {...sta_Layer} />
         </Source>  
 
         
@@ -139,3 +168,5 @@ export default function MapLibreGL_Map() {
   </div>
   );
 }
+
+
