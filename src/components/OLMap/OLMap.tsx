@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import Map from 'ol/Map';
-import { osm } from './layers';
+import { osm, vectortile_layer } from './layers';
 import { ol_view } from './views';
 import 'ol/ol.css';
 
@@ -13,8 +13,9 @@ export default function OL_Map() {
   // on component mount create the map and set the map refrences to the state
   useEffect(() => {
     const map1 = new Map({
-      layers: [osm  ],
+      layers: [osm , vectortile_layer ],
       view: ol_view,
+      target: map1Container.current,
     });
 
     map1.setTarget(map1Container.current);

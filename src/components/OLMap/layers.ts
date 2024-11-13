@@ -1,5 +1,5 @@
 import TileLayer from "ol/layer/Tile";
-import { OSM, VectorTile, OGCVectorTile } from "ol/source";
+import { OSM, VectorTile, OGCVectorTile, Vector } from "ol/source";
 import  MVT  from "ol/format/MVT";
 import VectorTileLayer, { Options } from "ol/layer/VectorTile";
 import Style from "ol/style/Style";
@@ -7,6 +7,7 @@ import Fill from "ol/style/Fill";
 import Stroke from "ol/style/Stroke";
 import { createXYZ } from "ol/tilegrid";
 import RenderFeature from "ol/render/Feature";
+import { Feature } from "ol";
 
 // import OGCVectorTile from 'ol/source/OGCVectorTile.js';
 // import VectorTileLayer from 'ol/layer/VectorTile.js';
@@ -15,15 +16,46 @@ export const osm = new TileLayer({
   source: new OSM(),
 })
 
-// // export const sta_layer = new VectorTile({
-// //   source: new VectorTile({
-// //       attributions: '© vzam contributors</a>',
-// //       format: new MVT(),
-// //       // tileGrid: tilegrid,
-// //       // tilePixelRatio: 8,
-// //       url: 'http://localhost:7800/gdx2.sta/{z}/{x}/{y}.pbf'
-// //   })
-// //   });
+
+export const  vectortile_layer = new VectorTile({
+      // tilePixelRatio: 1, // oversampling when > 1
+      tileGrid: createXYZ({ maxZoom: 19 }),
+      format: new MVT(),
+      url: 'http://localhost:8000/tiles/{z}/{x}/{y}.mvt',
+      minZoom: 14,
+      maxZoom: 18
+    }),
+  
+
+
+// export const reprojectingTileSource = new Vector({
+//   format: new MVT({
+//     // featureClass: Feature
+//   }),
+//   url: 'http://localhost:7800/gdx2.sta/{z}/{x}/{y}.pbf'
+// })
+
+
+
+// export const sta_layer = new VectorTile({
+//       attributions: '© vzam contributors</a>',
+//       format: new MVT(),
+//       // tileGrid: tilegrid,
+//       // tilePixelRatio: 8,
+//       url: 'http://localhost:7800/gdx2.sta/{z}/{x}/{y}.pbf'
+//   })
+  
+
+  // export const sta_layer = new VectorTile({
+
+  // source: new VectorTile({
+  //     attributions: '© vzam contributors</a>',
+  //     format: new MVT(),
+  //     // tileGrid: tilegrid,
+  //     // tilePixelRatio: 8,
+  //     url: 'http://localhost:7800/gdx2.sta/{z}/{x}/{y}.pbf'
+  // })
+  // });
 
 // export const sta_layer = new VectorTileLayer({
 //     source: new OGCVectorTile({
