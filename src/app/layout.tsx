@@ -20,12 +20,12 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Header />
-          <main className="container">
+          {/* <main className="container"> */}
             <Suspense fallback={<div>Loading...</div>}>    
               {children}
             </Suspense>
-          </main>
-        <Footer />
+          {/* </main> */}
+        {/* <Footer /> */}
       </body>
     </html>
   );

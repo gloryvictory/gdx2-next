@@ -19,11 +19,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
   .top-navbar {
     display: inline-flex !important;
   }
-}
+} */
 /* header {
   background-color: var(--color-bg);
   padding: 2rem 0;
