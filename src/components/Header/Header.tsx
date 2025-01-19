@@ -26,6 +26,7 @@ const Header = () => {
           <a href="#" className="mr-4 inline-flex items-center">
             {/* <Image src="/logo.png" alt="zsniigg-icon.png" width={40} height={40} className="p-1" /> */}
             {/* <Image src="/logo.svg" alt="zsniigg-icon.png" width={40} height={40} className="fill-current text-white h-8 w-8 mr-2"/> */}
+            
             <svg
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"

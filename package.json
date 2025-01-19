@@ -17,6 +17,7 @@
     "@watergis/maplibre-gl-legend": "^2.0.5",
     "antd": "^5.15.3",
     "js-yaml": "^4.1.0",
+    "lucide-react": "^0.473.0",
     "mapbox-gl": "^3.7.0",
     "maplibre-gl": "^4.7.1",
     "maplibre-gl-style-switcher": "^1.0.18",
